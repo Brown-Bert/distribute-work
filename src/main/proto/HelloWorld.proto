@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package="org.example.helloWorld";
+
+//请求
+message RequestInsertOrModify {
+  string key = 1;
+  string value = 2;
+  string usedServers = 3;
+  OperateType opType = 4;
+}
+
+message RequestDelete {
+  string key = 1;
+  OperateType opType = 2;
+}
+
+message RequestSelect {
+  string key = 1;
+  OperateType opType = 2;
+}
+
+//操作类型
+enum OperateType {
+  InsertOrModify = 0;
+  Delete = 1;
+  Select = 2;
+}
+message Response {
+  string result = 1;
+}
+
+//定义服务
+service OperateInsertOrModify {
+  rpc Calculate (RequestInsertOrModify) returns (Response);
+}
+//定义服务
+service OperateDelete {
+  rpc Calculate (RequestDelete) returns (Response);
+}
+//定义服务
+service OperateSelect {
+  rpc Calculate (RequestSelect) returns (Response);
+}

@@ -1,0 +1,69 @@
+version: "3"
+services:
+  redis:
+    restart: always
+    ports:
+    - 6379:6379
+    container_name: redis
+    image: redis:latest
+    command: redis-server
+    networks: 
+    - myspring
+#  server:
+#    image: server
+#    build:
+#      context: .
+#      dockerfile: ./Dockerfile
+#    environment:
+#      - MAVEN_MIRROR_URL=https://maven.aliyun.com/repository/public
+  server1:
+    image: server
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: server1
+    ports:
+    - 9527:9527
+    environment:
+      - FIRST_SERVER=server1
+      - FIRST_PORT=9527
+      - GRPC_PORT=9090
+      - NEXT_GRPC_PORT=9091
+      - SECOND_SERVER=server2
+      - SECOND_PORT=9528
+    networks:
+    - myspring
+  server2:
+    image: server
+    restart: always
+    container_name: server2
+    ports:
+    - 9528:9528
+    environment:
+      - FIRST_SERVER=server2
+      - FIRST_PORT=9528
+      - GRPC_PORT=9091
+      - NEXT_GRPC_PORT=9092
+      - SECOND_SERVER=server3
+      - SECOND_PORT=9529
+    networks:
+    - myspring
+  server3:
+    image: server
+    restart: always
+    container_name: server3
+    ports:
+    - 9529:9529
+    environment:
+      - FIRST_SERVER=server3
+      - FIRST_PORT=9529
+      - GRPC_PORT=9092
+      - NEXT_GRPC_PORT=9090
+      - SECOND_SERVER=server1
+      - SECOND_PORT=9527
+    networks: 
+    - myspring
+networks: 
+  myspring: 
+    driver: bridge

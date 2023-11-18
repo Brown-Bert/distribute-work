@@ -1,0 +1,35 @@
+server:
+#  servlet:
+#    context-path: /server2
+  port: ${FIRST_PORT}
+spring:
+  #redis数据库
+  redis:
+    database: 0
+    port: 6379
+    timeout: 500000ms
+    host: redis
+#spring:
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/spring?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: root
+#mybatis-plus:
+#  mapper-locations: mapper/*.xml
+#  type-aliases-package: cn.edu.transportsys.entity
+grpc:
+  port: ${GRPC_PORT}
+first_server: ${FIRST_SERVER}
+first_port: ${FIRST_PORT}
+grpc_port: ${GRPC_PORT}
+next_grpc_port: ${NEXT_GRPC_PORT}
+second_server: ${SECOND_SERVER}
+second_port: ${SECOND_PORT}
+
+#first_server: 1
+#first_port: 2
+#grpc_port: 3
+#second_server: 4
+#second_port: 5
